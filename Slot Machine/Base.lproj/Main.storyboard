@@ -47,23 +47,41 @@
                                 <rect key="frame" x="92" y="261" width="52" height="52"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Reset"/>
+                                <connections>
+                                    <action selector="onResetButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ICT-Mi-21p"/>
+                                </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="TRUMP" translatesAutoresizingMaskIntoConstraints="NO" id="ecU-C6-dsY" userLabel="ImageView-LeftReel">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ecU-C6-dsY" userLabel="ImageView-HelperLeftReel">
                                 <rect key="frame" x="74" y="93" width="87" height="87"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XX5-qQ-2pY" userLabel="ImageView-LeftReel">
+                                <rect key="frame" x="74" y="6" width="87" height="87"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kwD-jg-4Tq" userLabel="ImageView-MiddleReel">
-                                <rect key="frame" x="198" y="93" width="87.5" height="87"/>
+                                <rect key="frame" x="198" y="93" width="87" height="87"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S9U-01-6wH" userLabel="ImageView-HelperMiddleReel">
+                                <rect key="frame" x="198" y="6" width="87" height="87"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1yA-EO-EBW" userLabel="ImageView-RightReel">
-                                <rect key="frame" x="322.5" y="93" width="86.5" height="87"/>
+                                <rect key="frame" x="322.5" y="93" width="87" height="87"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ro2-el-gce" userLabel="ImageView-RightReel">
+                                <rect key="frame" x="322.5" y="6" width="87" height="87"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fUM-jZ-HNR" userLabel="Button-Spin">
                                 <rect key="frame" x="345" y="262" width="52" height="52"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Spin"/>
+                                <connections>
+                                    <action selector="onSpinButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lnQ-PQ-cGO"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MONEY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b7A-Ur-Gc2">
                                 <rect key="frame" x="219" y="217" width="53" height="21"/>
@@ -78,11 +96,13 @@
                     </view>
                     <connections>
                         <outlet property="betField" destination="Ee5-AB-ZlS" id="xi2-Mn-JyO"/>
+                        <outlet property="helperLeftReel" destination="XX5-qQ-2pY" id="5Xl-9O-hQg"/>
+                        <outlet property="helperMiddleReel" destination="S9U-01-6wH" id="guw-XJ-O14"/>
+                        <outlet property="helperRightReel" destination="ro2-el-gce" id="noP-2E-fgE"/>
                         <outlet property="leftReel" destination="ecU-C6-dsY" id="eUh-Kr-Zqr"/>
+                        <outlet property="machineBackground" destination="idT-dz-yjl" id="bNR-W1-B4A"/>
                         <outlet property="middleReel" destination="kwD-jg-4Tq" id="a5b-x2-HH1"/>
                         <outlet property="moneyLeftField" destination="xhB-pv-DQc" id="s9h-yl-iOn"/>
-                        <outlet property="onResetButtonPressed" destination="b7R-MM-QpL" id="yBP-CD-4RN"/>
-                        <outlet property="onSpinButtonPressed" destination="fUM-jZ-HNR" id="fhh-Jt-kct"/>
                         <outlet property="rightReel" destination="1yA-EO-EBW" id="DAZ-JS-und"/>
                         <outlet property="winField" destination="35O-aJ-tv3" id="avZ-xe-br6"/>
                     </connections>
@@ -96,6 +116,5 @@
         <image name="Background" width="1334" height="750"/>
         <image name="Reset" width="104" height="102"/>
         <image name="Spin" width="96" height="98"/>
-        <image name="TRUMP" width="256" height="256"/>
     </resources>
 </document>
