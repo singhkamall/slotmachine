@@ -48,7 +48,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Reset"/>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ecU-C6-dsY" userLabel="ImageView-LeftReel">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="TRUMP" translatesAutoresizingMaskIntoConstraints="NO" id="ecU-C6-dsY" userLabel="ImageView-LeftReel">
                                 <rect key="frame" x="74" y="93" width="87" height="87"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -96,5 +96,6 @@
         <image name="Background" width="1334" height="750"/>
         <image name="Reset" width="104" height="102"/>
         <image name="Spin" width="96" height="98"/>
+        <image name="TRUMP" width="256" height="256"/>
     </resources>
 </document>

@@ -15,6 +15,18 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    // REEL IMAGES
+    var reelImages: [UIImage] = [ UIImage(named: "Seven")!,
+        UIImage(named: "Bar")!,
+        UIImage(named: "Card")!,
+        UIImage(named: "Cherry")!,
+        UIImage(named: "Dunky")!,
+        UIImage(named: "Lemon")!,
+        UIImage(named: "Money")!,
+        UIImage(named: "Penguin")!,
+        UIImage(named: "Trump")!
+    ]
 
     // OUTLETS
     @IBOutlet weak var leftReel: UIImageView!
@@ -33,6 +45,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        middleReel.image = reelImages[8]
+        self.view.addSubview(middleReel)
     }
     
     
