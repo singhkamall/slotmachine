@@ -89,7 +89,7 @@ class ViewController: UIViewController {
     // ACTIONS
     
     @IBAction func onSpinButtonPressed(_ sender: UIButton) {
-        AnimateReels()
+        //AnimateReels()
         
         playerBet =  Int(betField.text!)!
         
@@ -172,10 +172,10 @@ class ViewController: UIViewController {
     func showPlayerStats()
     {
         winRatio = winNumber / turn;
-        tvJackpot.insertText(String(jackpot))
+        tvJackpot.text = String(jackpot)
         
-        moneyLeftField.insertText(String(playerMoney))
-        winField.insertText(String(winNumber))
+        moneyLeftField.text = (String(playerMoney))
+        winField.text = (String(winNumber))
         
         //$("#playerTurn").text("Turn: " + turn);
         //$("#playerWins").text("Wins: " + winNumber);
