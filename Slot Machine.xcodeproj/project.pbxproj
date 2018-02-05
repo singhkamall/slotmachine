@@ -12,6 +12,11 @@
 		C77F4DD8201F7F4A00398257 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C77F4DD6201F7F4A00398257 /* Main.storyboard */; };
 		C77F4DDA201F7F4A00398257 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C77F4DD9201F7F4A00398257 /* Assets.xcassets */; };
 		C77F4DDD201F7F4A00398257 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C77F4DDB201F7F4A00398257 /* LaunchScreen.storyboard */; };
+		E143BA47202820C200F29BAE /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E143BA46202820C200F29BAE /* Utils.swift */; };
+		E143BA4A2028211000F29BAE /* Pop.aiff in Resources */ = {isa = PBXBuildFile; fileRef = E143BA482028211000F29BAE /* Pop.aiff */; };
+		E143BA4B2028211000F29BAE /* Intro.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E143BA492028211000F29BAE /* Intro.mp3 */; };
+		E143BA4D202823B200F29BAE /* reelsound.wav in Resources */ = {isa = PBXBuildFile; fileRef = E143BA4C202823B200F29BAE /* reelsound.wav */; };
+		E143BA4F20282A0E00F29BAE /* cucaracha.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E143BA4E20282A0E00F29BAE /* cucaracha.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +27,11 @@
 		C77F4DD9201F7F4A00398257 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C77F4DDC201F7F4A00398257 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C77F4DDE201F7F4A00398257 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E143BA46202820C200F29BAE /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		E143BA482028211000F29BAE /* Pop.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Pop.aiff; sourceTree = "<group>"; };
+		E143BA492028211000F29BAE /* Intro.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Intro.mp3; sourceTree = "<group>"; };
+		E143BA4C202823B200F29BAE /* reelsound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = reelsound.wav; sourceTree = "<group>"; };
+		E143BA4E20282A0E00F29BAE /* cucaracha.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = cucaracha.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +64,7 @@
 		C77F4DD1201F7F4900398257 /* Slot Machine */ = {
 			isa = PBXGroup;
 			children = (
+				E143BA442028206E00F29BAE /* Utils */,
 				C77F4DD2201F7F4900398257 /* AppDelegate.swift */,
 				C77F4DD4201F7F4A00398257 /* ViewController.swift */,
 				C77F4DD6201F7F4A00398257 /* Main.storyboard */,
@@ -62,6 +73,26 @@
 				C77F4DDE201F7F4A00398257 /* Info.plist */,
 			);
 			path = "Slot Machine";
+			sourceTree = "<group>";
+		};
+		E143BA442028206E00F29BAE /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E143BA452028209300F29BAE /* Sound */,
+				E143BA46202820C200F29BAE /* Utils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		E143BA452028209300F29BAE /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				E143BA4E20282A0E00F29BAE /* cucaracha.mp3 */,
+				E143BA4C202823B200F29BAE /* reelsound.wav */,
+				E143BA492028211000F29BAE /* Intro.mp3 */,
+				E143BA482028211000F29BAE /* Pop.aiff */,
+			);
+			path = Sound;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -123,9 +154,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E143BA4D202823B200F29BAE /* reelsound.wav in Resources */,
 				C77F4DDD201F7F4A00398257 /* LaunchScreen.storyboard in Resources */,
+				E143BA4B2028211000F29BAE /* Intro.mp3 in Resources */,
 				C77F4DDA201F7F4A00398257 /* Assets.xcassets in Resources */,
 				C77F4DD8201F7F4A00398257 /* Main.storyboard in Resources */,
+				E143BA4F20282A0E00F29BAE /* cucaracha.mp3 in Resources */,
+				E143BA4A2028211000F29BAE /* Pop.aiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,6 +173,7 @@
 			files = (
 				C77F4DD5201F7F4A00398257 /* ViewController.swift in Sources */,
 				C77F4DD3201F7F4A00398257 /* AppDelegate.swift in Sources */,
+				E143BA47202820C200F29BAE /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

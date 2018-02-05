@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     var fruits: String = "";
     var winRatio: Int = 0;
     var seven: Int = 0;
-    var bars: Int = 0;
+    var barsCounter: Int = 0;
     var card: Int = 0;
     var cherries: Int = 0;
     var dunky: Int = 0;
@@ -43,6 +43,8 @@ class ViewController: UIViewController {
     var helperReelOriginalY:CGFloat = 0.0
     
     
+    
+    
     // REEL IMAGES
     var reelImages: [UIImage] = [
         UIImage(named: "Seven")!,
@@ -54,6 +56,18 @@ class ViewController: UIViewController {
         UIImage(named: "Money")!,
         UIImage(named: "Penguin")!,
         UIImage(named: "Trump")!
+    ]
+    
+    var reelImageNames: [String] = [
+        "Seven",
+        "aBar",
+        "Card",
+        "Cherry",
+        "Dunky",
+        "Lemon",
+        "Money",
+        "Penguin",
+        "Trump"
     ]
 
     // OUTLETS
@@ -87,13 +101,28 @@ class ViewController: UIViewController {
         // Seed the random generator
         let time = UInt32(NSDate().timeIntervalSinceReferenceDate)
         srand48(Int(time))
+        
+        var jackPotLabel:UILabel!
+        jackPotLabel = UILabel()
+        jackPotLabel.text = "Won JackPot $5000 !!"
+        jackPotLabel.font = UIFont.boldSystemFont(ofSize: 48)
+        jackPotLabel.sizeToFit()
+        jackPotLabel.textColor = UIColor.red
+        jackPotLabel.center = CGPoint(x:250, y:0)
+        jackPotLabel.alpha = 0
+        
+        view.addSubview(jackPotLabel)
+        
+        UIView.animate(withDuration: 2.0, delay: 0.5, usingSpringWithDamping: 0.2, initialSpringVelocity: 0.0, options: .curveEaseInOut, animations: {
+            jackPotLabel.center = CGPoint( x:250, y:0+200)
+            jackPotLabel.alpha = 1
+        }, completion: nil)
     }
         
     
     // ACTIONS
     
     @IBAction func onSpinButtonPressed(_ sender: UIButton) {
-        //AnimateReels()
         
         if ("" == betField.text?.trimmingCharacters(in: .whitespacesAndNewlines)){
             let alertController = UIAlertController(title: "Alert", message: "Please enter you bet!", preferredStyle: .alert)
@@ -158,13 +187,17 @@ class ViewController: UIViewController {
                 self.present(alertController, animated: true, completion:nil)
             }
             else if (playerBet <= playerMoney) {
+                
                 spinResult = Reels();
                 fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
+                print(fruits)
                 lblWinLose.text = fruits
                 //$("div#result>p").text(fruits);
                 determineWinnings();
                 turn += 1;
                 showPlayerStats();
+                
+                AnimateReels()
             }
             else {
                 //alert("Please enter a valid bet amount");
@@ -183,6 +216,8 @@ class ViewController: UIViewController {
     
     
     @IBAction func onResetButtonPressed(_ sender: UIButton) {
+        //Utils.playSound(file: "Pop", ext: "aiff")
+        Utils.playSound(file: "cucaracha", ext: "mp3")
         ResetReel()
         ResetAll()
     }
@@ -203,7 +238,7 @@ class ViewController: UIViewController {
     
     func ResetReel() {
         seven = 0
-        bars = 0
+        barsCounter = 0
         card = 0
         cherries = 0
         dunky = 0
@@ -242,6 +277,7 @@ class ViewController: UIViewController {
             
             playerMoney += jackpot
             jackpot = 1000
+            
         }
     }
     
@@ -282,38 +318,40 @@ class ViewController: UIViewController {
             outCome[spin] = Int(roundf(Float(drand48() * 65) + 1))
             switch (Float(outCome[spin])) {
                 case checkRange(value: Float(outCome[spin]), lowerBounds: 1, upperBounds: 27):  // 41.5% probability
-                    betLine[spin] = "trump"
-                    trump += 1
+                    betLine[spin] = "aBar"
+                    barsCounter += 1
                 break;
             case checkRange(value: Float(outCome[spin]), lowerBounds: 28, upperBounds: 37): // 15.4% probability
-                    betLine[spin] = "seven"
-                    seven += 1
+                    betLine[spin] = "Lemon"
+                    lemon += 1
                 break;
             case checkRange(value: Float(outCome[spin]), lowerBounds: 38, upperBounds: 46): // 13.8% probability
-                    betLine[spin] = "bars"
-                    bars += 1
+                    betLine[spin] = "Cherry"
+                    cherries += 1
                 break;
             case checkRange(value: Float(outCome[spin]), lowerBounds: 47, upperBounds: 54): // 12.3% probability
-                    betLine[spin] = "card";
-                    card += 1;
+                    betLine[spin] = "Card";
+                    card += 1
                 break;
             case checkRange(value: Float(outCome[spin]), lowerBounds: 55, upperBounds: 59): //  7.7% probability
-                    betLine[spin] = "cherries";
-                    cherries += 1;
+                    betLine[spin] = "Dunky";
+                    dunky += 1
                 break;
             case checkRange(value: Float(outCome[spin]), lowerBounds: 60, upperBounds: 62): //  4.6% probability
-                    betLine[spin] = "dunky";
-                    dunky += 1;
+                    betLine[spin] = "Money";
+                    money += 1
                 break;
             case checkRange(value: Float(outCome[spin]), lowerBounds: 63, upperBounds: 64): //  3.1% probability
-                    betLine[spin] = "lemon";
-                    lemon += 1;
+                    betLine[spin] = "Seven";
+                    seven += 1
                 break;
             case checkRange(value: Float(outCome[spin]), lowerBounds: 65, upperBounds: 65): //  1.5% probability
-                    betLine[spin] = "money";
-                    money += 1;
+                    betLine[spin] = "Trump";
+                    trump += 1
                 break;
-            default: break
+            default: betLine[spin] = "Trump";
+                    trump += 1;
+                break
                 
             }
         }
@@ -327,7 +365,7 @@ class ViewController: UIViewController {
             if (seven == 3) {
                 winnings = playerBet * 10;
             }
-            else if(bars == 3) {
+            else if(barsCounter == 3) {
                 winnings = playerBet * 20;
             }
             else if (card == 3) {
@@ -335,9 +373,6 @@ class ViewController: UIViewController {
             }
             else if (cherries == 3) {
                 winnings = playerBet * 40;
-            }
-            else if (bars == 3) {
-                winnings = playerBet * 50;
             }
             else if (lemon == 3) {
                 winnings = playerBet * 75;
@@ -348,7 +383,7 @@ class ViewController: UIViewController {
             else if (seven == 2) {
                 winnings = playerBet * 2;
             }
-            else if (bars == 2) {
+            else if (barsCounter == 2) {
                 winnings = playerBet * 2;
             }
             else if (card == 2) {
@@ -356,9 +391,6 @@ class ViewController: UIViewController {
             }
             else if (cherries == 2) {
                 winnings = playerBet * 4;
-            }
-            else if (bars == 2) {
-                winnings = playerBet * 5;
             }
             else if (lemon == 2) {
                 winnings = playerBet * 10;
@@ -424,26 +456,61 @@ class ViewController: UIViewController {
     
     // Animates all three reels, one starts after the other with a little delay
     private func AnimateReels() {
+        // Play a sound when button is pressed
+        // Play Sound and set delay to see the splash screen
+        //Utils.playSound(file: "Intro", ext: "mp3")
+        //Utils.playSound(file: "Pop", ext: "aiff")
+        
         var yourDelay = 0
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(yourDelay), execute: { () -> Void in
-            self.animateReelRecursive(nextImage: 2, firstView: self.leftReel, secondView: self.helperLeftReel, duration:0.15)
+            Utils.playSound(file: "reelsound", ext: "wav")
+            self.animateReelRecursive(nextImage: 2, firstView: self.leftReel, secondView: self.helperLeftReel, duration:0.15, reel: "left")
         })
         
         yourDelay = 1
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(yourDelay), execute: { () -> Void in
-            self.animateReelRecursive(nextImage: 2, firstView: self.middleReel, secondView: self.helperMiddleReel, duration:0.15)
+            Utils.playSound(file: "reelsound", ext: "wav")
+            self.animateReelRecursive(nextImage: 2, firstView: self.middleReel, secondView: self.helperMiddleReel, duration:0.15, reel: "middle")
         })
         
         yourDelay = 2
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(yourDelay), execute: { () -> Void in
-            self.animateReelRecursive(nextImage: 2, firstView: self.rightReel, secondView: self.helperRightReel, duration:0.15)
+            Utils.playSound(file: "reelsound", ext: "wav")
+            self.animateReelRecursive(nextImage: 2, firstView: self.rightReel, secondView: self.helperRightReel, duration:0.15, reel: "right")
         })
     }
    
     
     // Recursive function that make possible animation
     // Requires to receive the imageView in the correct order for the animation and the next image to be shown
-    private func animateReelRecursive(nextImage:Int, firstView:UIImageView, secondView:UIImageView, duration:Double) {
+    private func animateReelRecursive(nextImage:Int, firstView:UIImageView, secondView:UIImageView, duration:Double, reel:String) {
+        
+        // Second Base condition. If next Image is the selected one, then stop recursion
+        let reelNumber = reel == "left" ? 0 : (reel == "middle" ? 1 : 2)
+        if  nextImage > 0  && (nextImage - 1 ) == reelImageNames.index(of: spinResult[reelNumber]) {
+            UIView.animate(withDuration: duration, delay: 0, options: .curveLinear, animations: {
+                firstView.frame.origin.y += self.reelHeight
+                secondView.frame.origin.y += self.reelHeight
+            }, completion: { (success:Bool) in
+                if success {
+                    firstView.image = self.reelImages[0]
+                    self.view.addSubview(firstView)
+                    firstView.frame.origin.y = self.helperReelOriginalY
+                    
+                }
+            })
+            return
+        }
+//        if  nextImage == 0 {
+//            firstView.image = self.reelImages[0]
+//            self.view.addSubview(firstView)
+//            firstView.frame.origin.y = self.reelOriginalY
+//
+//            secondView.image = self.reelImages[1]
+//            self.view.addSubview(secondView)
+//            secondView.frame.origin.y = self.helperReelOriginalY
+//            return
+//        }
         
         // Base condition to stop recursion
         // When the last image is received, it makes sure this last image is shown and end recursion
@@ -456,10 +523,15 @@ class ViewController: UIViewController {
                     firstView.image = self.reelImages[0]
                     self.view.addSubview(firstView)
                     firstView.frame.origin.y = self.helperReelOriginalY
+                    
+                    // Recursive call to continue animation
+                    self.animateReelRecursive(nextImage: 1, firstView: secondView, secondView: firstView, duration: duration, reel: reel)
                 }
             })
             return
         }
+        
+       
         
         // Recursive Step
         UIView.animate(withDuration: duration, delay: 0, options: .curveLinear, animations: {
@@ -474,7 +546,7 @@ class ViewController: UIViewController {
                 firstView.frame.origin.y = self.helperReelOriginalY
                 
                 // Recursive call to continue animation
-                self.animateReelRecursive(nextImage: nextImage+1, firstView: secondView, secondView: firstView, duration: duration)
+                self.animateReelRecursive(nextImage: nextImage+1, firstView: secondView, secondView: firstView, duration: duration, reel: reel)
             }
         })
     }
