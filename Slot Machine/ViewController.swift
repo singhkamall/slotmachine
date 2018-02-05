@@ -102,7 +102,7 @@ class ViewController: UIViewController {
             // Present Dialog message
             self.present(alertController, animated: true, completion:nil)
         }
-        else {            
+        else {
             playerBet =  Int(betField.text!)!
             
             if (playerMoney == 0)
@@ -180,6 +180,7 @@ class ViewController: UIViewController {
     
     @IBAction func onResetButtonPressed(_ sender: UIButton) {
         ResetReel()
+        ResetAll()
     }
     
     func showPlayerStats()
@@ -217,6 +218,11 @@ class ViewController: UIViewController {
         winNumber = 0
         lossNumber = 0
         winRatio = 0
+        
+        moneyLeftField.text = ""
+        lblWinLose.text = ""
+        betField.text = ""
+        winField.text = ""
     }
     
     func checkJackPot() {
@@ -260,7 +266,7 @@ class ViewController: UIViewController {
             return value;
         }
         else {
-            return value;   //////////// CANNOT ADD ! HERE as -> !value
+            return 0;   //////////// CANNOT ADD ! HERE as -> !value
         }
     }
     
