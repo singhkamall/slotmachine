@@ -91,77 +91,90 @@ class ViewController: UIViewController {
     @IBAction func onSpinButtonPressed(_ sender: UIButton) {
         //AnimateReels()
         
-        playerBet =  Int(betField.text!)!
-        
-        if (playerMoney == 0)
-        {
-            let alertController = UIAlertController(title: "Alert", message: "You ran out of Money! \nDo you want to play again?", preferredStyle: .alert)
-        
+        if ("" == betField.text?.trimmingCharacters(in: .whitespacesAndNewlines)){
+            let alertController = UIAlertController(title: "Alert", message: "Please enter you bet!", preferredStyle: .alert)
+            
             // Create OK button
             let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+            }
+            alertController.addAction(OKAction)
+            
+            // Present Dialog message
+            self.present(alertController, animated: true, completion:nil)
+        }
+        else {            
+            playerBet =  Int(betField.text!)!
+            
+            if (playerMoney == 0)
+            {
+                let alertController = UIAlertController(title: "Alert", message: "You ran out of Money! \nDo you want to play again?", preferredStyle: .alert)
+            
+                // Create OK button
+                let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+                    
+                    // Code in this block will trigger when OK button tapped.
+                    self.ResetAll()
+                    self.turn += 1;
+                    self.showPlayerStats()
+                    
+                }
+                alertController.addAction(OKAction)
                 
-                // Code in this block will trigger when OK button tapped.
-                self.ResetAll()
-                self.showPlayerStats()
+                // Create Cancel button
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action:UIAlertAction!) in
+                }
+                alertController.addAction(cancelAction)
+                
+                // Present Dialog message
+                self.present(alertController, animated: true, completion:nil)
                 
             }
-            alertController.addAction(OKAction)
-            
-            // Create Cancel button
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action:UIAlertAction!) in
+            else if (playerBet > playerMoney) {
+                //alert("You don't have enough Money to place that bet.");
+                let alertController = UIAlertController(title: "Alert", message: "You don't have enough Money to place that bet.", preferredStyle: .alert)
+                
+                // Create OK button
+                let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+                }
+                alertController.addAction(OKAction)
+                
+                // Present Dialog message
+                self.present(alertController, animated: true, completion:nil)
             }
-            alertController.addAction(cancelAction)
-            
-            // Present Dialog message
-            self.present(alertController, animated: true, completion:nil)
-            
-        }
-        else if (playerBet > playerMoney) {
-            //alert("You don't have enough Money to place that bet.");
-            let alertController = UIAlertController(title: "Alert", message: "You don't have enough Money to place that bet.", preferredStyle: .alert)
-            
-            // Create OK button
-            let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+            else if (playerBet < 0) {
+                //alert("All bets must be a positive $ amount.");
+                let alertController = UIAlertController(title: "Alert", message: "All bets must be a positive $ amount.", preferredStyle: .alert)
+                
+                // Create OK button
+                let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+                }
+                alertController.addAction(OKAction)
+                
+                // Present Dialog message
+                self.present(alertController, animated: true, completion:nil)
             }
-            alertController.addAction(OKAction)
-            
-            // Present Dialog message
-            self.present(alertController, animated: true, completion:nil)
-        }
-        else if (playerBet < 0) {
-            //alert("All bets must be a positive $ amount.");
-            let alertController = UIAlertController(title: "Alert", message: "All bets must be a positive $ amount.", preferredStyle: .alert)
-            
-            // Create OK button
-            let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+            else if (playerBet <= playerMoney) {
+                spinResult = Reels();
+                fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
+                lblWinLose.text = fruits
+                //$("div#result>p").text(fruits);
+                determineWinnings();
+                turn += 1;
+                showPlayerStats();
             }
-            alertController.addAction(OKAction)
-            
-            // Present Dialog message
-            self.present(alertController, animated: true, completion:nil)
-        }
-        else if (playerBet <= playerMoney) {
-            spinResult = Reels();
-            fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
-            lblWinLose.text = fruits
-            //$("div#result>p").text(fruits);
-            determineWinnings();
-            turn += 1;
-            showPlayerStats();
-        }
-        else {
-            //alert("Please enter a valid bet amount");
-            let alertController = UIAlertController(title: "Alert", message: "APlease enter a valid bet amount", preferredStyle: .alert)
-            
-            // Create OK button
-            let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+            else {
+                //alert("Please enter a valid bet amount");
+                let alertController = UIAlertController(title: "Alert", message: "Please enter a valid bet amount", preferredStyle: .alert)
+                
+                // Create OK button
+                let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+                }
+                alertController.addAction(OKAction)
+                
+                // Present Dialog message
+                self.present(alertController, animated: true, completion:nil)
             }
-            alertController.addAction(OKAction)
-            
-            // Present Dialog message
-            self.present(alertController, animated: true, completion:nil)
         }
-        
     }
     
     
