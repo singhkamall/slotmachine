@@ -83,6 +83,10 @@ class ViewController: UIViewController {
         
         initializeAnimationConstants()
         loadInitialImages()
+        
+        // Seed the random generator
+        let time = UInt32(NSDate().timeIntervalSinceReferenceDate)
+        srand48(Int(time))
     }
         
     
@@ -227,12 +231,7 @@ class ViewController: UIViewController {
     
     func checkJackPot() {
         /* compare two random values */
-        var time = UInt32(NSDate().timeIntervalSinceReferenceDate)
-        srand48(Int(time))
         let jackPotTry = roundf(Float(drand48() * 51.0 + 1.0));
-        
-        time = UInt32(NSDate().timeIntervalSinceReferenceDate)
-        srand48(Int(time))
         let jackPotWin = roundf(Float(drand48() * 51.0 + 1.0));
         if (jackPotTry == jackPotWin) {
             
@@ -280,8 +279,6 @@ class ViewController: UIViewController {
         var outCome = [0, 0, 0];
     
         for spin in 0...2 {
-            let time = UInt32(NSDate().timeIntervalSinceReferenceDate)
-            srand48(Int(time))
             outCome[spin] = Int(roundf(Float(drand48() * 65) + 1))
             switch (Float(outCome[spin])) {
                 case checkRange(value: Float(outCome[spin]), lowerBounds: 1, upperBounds: 27):  // 41.5% probability
