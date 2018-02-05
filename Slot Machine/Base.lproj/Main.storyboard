@@ -90,6 +90,20 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Jackpot: " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mgt-cD-mon">
+                                <rect key="frame" x="157" y="269" width="176" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQN-rx-WdV">
+                                <rect key="frame" x="152" y="236" width="176" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                <color key="textColor" red="0.0039115571416914463" green="0.45919054746627808" blue="0.0041967956349253654" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -99,11 +113,13 @@
                         <outlet property="helperLeftReel" destination="XX5-qQ-2pY" id="5Xl-9O-hQg"/>
                         <outlet property="helperMiddleReel" destination="S9U-01-6wH" id="guw-XJ-O14"/>
                         <outlet property="helperRightReel" destination="ro2-el-gce" id="noP-2E-fgE"/>
+                        <outlet property="lblWinLose" destination="hQN-rx-WdV" id="5H4-q1-47I"/>
                         <outlet property="leftReel" destination="ecU-C6-dsY" id="eUh-Kr-Zqr"/>
                         <outlet property="machineBackground" destination="idT-dz-yjl" id="bNR-W1-B4A"/>
                         <outlet property="middleReel" destination="kwD-jg-4Tq" id="a5b-x2-HH1"/>
                         <outlet property="moneyLeftField" destination="xhB-pv-DQc" id="s9h-yl-iOn"/>
                         <outlet property="rightReel" destination="1yA-EO-EBW" id="DAZ-JS-und"/>
+                        <outlet property="tvJackpot" destination="mgt-cD-mon" id="89G-tP-3DY"/>
                         <outlet property="winField" destination="35O-aJ-tv3" id="avZ-xe-br6"/>
                     </connections>
                 </viewController>
