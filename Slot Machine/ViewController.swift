@@ -16,34 +16,33 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    // VARIABLE
-    var playerMoney: Int = 1000;
-    var winnings: Int = 0;
-    var jackpot: Int = 5000;
-    var turn: Int = 0;
-    var playerBet: Int = 0;
-    var winNumber: Int = 0;
-    var lossNumber: Int = 0;
-    var spinResult: [String] = [];
-    var fruits: String = "";
-    var winRatio: Int = 0;
-    var seven: Int = 0;
-    var barsCounter: Int = 0;
-    var card: Int = 0;
-    var cherries: Int = 0;
-    var dunky: Int = 0;
-    var lemon: Int = 0;
-    var money: Int = 0;
-    var penguin: Int = 0;
-    var trump: Int = 0;
+    // VARIABLES FOR THE GAME
+    var playerMoney: Int = 1000
+    var winnings: Int = 0
+    var jackpot: Int = 5000
+    var turn: Int = 0
+    var playerBet: Int = 0
+    var winNumber: Int = 0
+    var lossNumber: Int = 0
+    var spinResult: [String] = []
+    var fruits: String = ""
+    var winRatio: Int = 0
+    var seven: Int = 0
+    var barsCounter: Int = 0
+    var card: Int = 0
+    var cherries: Int = 0
+    var dunky: Int = 0
+    var lemon: Int = 0
+    var money: Int = 0
+    var penguin: Int = 0
+    var trump: Int = 0
+    var hitJackpot: Bool = false
+    var jackPotLabel:UILabel! = UILabel()
     
     // CONSTANT FOR ANIMATING REELIMAGES
     var reelHeight:CGFloat = 0.0
     var reelOriginalY:CGFloat = 0.0
     var helperReelOriginalY:CGFloat = 0.0
-    
-    
-    
     
     // REEL IMAGES
     var reelImages: [UIImage] = [
@@ -60,7 +59,7 @@ class ViewController: UIViewController {
     
     var reelImageNames: [String] = [
         "Seven",
-        "aBar",
+        "Bar",
         "Card",
         "Cherry",
         "Dunky",
@@ -74,49 +73,47 @@ class ViewController: UIViewController {
     @IBOutlet weak var lblWinLose: UILabel!
     @IBOutlet weak var tvJackpot: UITextView!
     @IBOutlet weak var machineBackground: UIImageView!
+    
     @IBOutlet weak var leftReel: UIImageView!
     @IBOutlet weak var helperLeftReel: UIImageView!
-    
     @IBOutlet weak var middleReel: UIImageView!
     @IBOutlet weak var helperMiddleReel: UIImageView!
-    
     @IBOutlet weak var rightReel: UIImageView!
     @IBOutlet weak var helperRightReel: UIImageView!
     
     @IBOutlet weak var winField: UITextField!
-    
     @IBOutlet weak var moneyLeftField: UITextField!
-    
     @IBOutlet weak var betField: UITextField!
     
     
     // OVERRIVEN METHODS FOR VIEW CONTROLLER
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        initializeAnimationConstants()
-        loadInitialImages()
-        
-        // Seed the random generator
-        let time = UInt32(NSDate().timeIntervalSinceReferenceDate)
-        srand48(Int(time))
-        
-        var jackPotLabel:UILabel!
-        jackPotLabel = UILabel()
-        jackPotLabel.text = "Won JackPot $5000 !!"
+    fileprivate func showJackpotWinMessage(money:String) {
+        jackPotLabel.text = "Won JackPot $" + money + " !!"
         jackPotLabel.font = UIFont.boldSystemFont(ofSize: 48)
         jackPotLabel.sizeToFit()
-        jackPotLabel.textColor = UIColor.red
+        jackPotLabel.textColor = UIColor.orange
         jackPotLabel.center = CGPoint(x:250, y:0)
         jackPotLabel.alpha = 0
         
         view.addSubview(jackPotLabel)
         
         UIView.animate(withDuration: 2.0, delay: 0.5, usingSpringWithDamping: 0.2, initialSpringVelocity: 0.0, options: .curveEaseInOut, animations: {
-            jackPotLabel.center = CGPoint( x:250, y:0+200)
-            jackPotLabel.alpha = 1
+            self.jackPotLabel.center = CGPoint( x:250, y:0+200)
+            self.jackPotLabel.alpha = 1
         }, completion: nil)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        hitJackpot = false
+        initializeAnimationConstants()
+        loadInitialImages()
+        
+        // Seed the random generator
+        let time = UInt32(NSDate().timeIntervalSinceReferenceDate)
+        srand48(Int(time))
     }
         
     
@@ -190,14 +187,19 @@ class ViewController: UIViewController {
                 
                 spinResult = Reels();
                 fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
-                print(fruits)
+                //print(fruits)
                 lblWinLose.text = fruits
                 //$("div#result>p").text(fruits);
                 determineWinnings();
                 turn += 1;
                 showPlayerStats();
                 
-                AnimateReels()
+                if !hitJackpot {
+                    AnimateReels()
+                }
+                else {
+                    hitJackpot = false
+                }
             }
             else {
                 //alert("Please enter a valid bet amount");
@@ -216,8 +218,9 @@ class ViewController: UIViewController {
     
     
     @IBAction func onResetButtonPressed(_ sender: UIButton) {
-        //Utils.playSound(file: "Pop", ext: "aiff")
-        Utils.playSound(file: "cucaracha", ext: "mp3")
+        Utils.playSound(file: "Pop", ext: "aiff")
+        jackPotLabel.center = CGPoint(x:250, y:0)
+        jackPotLabel.alpha = 0
         ResetReel()
         ResetAll()
     }
@@ -249,6 +252,7 @@ class ViewController: UIViewController {
     }
     
     func ResetAll() {
+        hitJackpot = false
         playerMoney = 1000
         winnings = 0
         jackpot = 5000
@@ -269,15 +273,22 @@ class ViewController: UIViewController {
         let jackPotTry = roundf(Float(drand48() * 51.0 + 1.0));
         let jackPotWin = roundf(Float(drand48() * 51.0 + 1.0));
         if (jackPotTry == jackPotWin) {
-            
-            //alert("You Won the $" + jackpot + " Jackpot!!");
-            let alert = UIAlertController(title: "Congratualtion!!", message: "You Won the $" + String(jackpot) + " Jackpot!!", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-            self.present(alert, animated: true)
-            
+            // Calculate jackpot
+            hitJackpot = true
             playerMoney += jackpot
             jackpot = 1000
             
+            // Set images in reels for the big moment
+            middleReel.image = reelImages[8]
+            self.view.addSubview(middleReel)
+            leftReel.image = reelImages[8]
+            self.view.addSubview(leftReel)
+            rightReel.image = reelImages[8]
+            self.view.addSubview(rightReel)
+            
+            // Play music and show an animated message
+            Utils.playSound(file: "cucaracha", ext: "mp3")
+            showJackpotWinMessage(money: String(jackpot))
         }
     }
     
@@ -318,24 +329,24 @@ class ViewController: UIViewController {
             outCome[spin] = Int(roundf(Float(drand48() * 65) + 1))
             switch (Float(outCome[spin])) {
                 case checkRange(value: Float(outCome[spin]), lowerBounds: 1, upperBounds: 27):  // 41.5% probability
-                    betLine[spin] = "aBar"
-                    barsCounter += 1
+                    betLine[spin] = "Cherry"
+                    cherries += 1
                 break;
             case checkRange(value: Float(outCome[spin]), lowerBounds: 28, upperBounds: 37): // 15.4% probability
                     betLine[spin] = "Lemon"
                     lemon += 1
                 break;
             case checkRange(value: Float(outCome[spin]), lowerBounds: 38, upperBounds: 46): // 13.8% probability
-                    betLine[spin] = "Cherry"
-                    cherries += 1
+                    betLine[spin] = "Penguin"
+                    penguin += 1
                 break;
             case checkRange(value: Float(outCome[spin]), lowerBounds: 47, upperBounds: 54): // 12.3% probability
-                    betLine[spin] = "Card";
-                    card += 1
-                break;
-            case checkRange(value: Float(outCome[spin]), lowerBounds: 55, upperBounds: 59): //  7.7% probability
                     betLine[spin] = "Dunky";
                     dunky += 1
+                break;
+            case checkRange(value: Float(outCome[spin]), lowerBounds: 55, upperBounds: 59): //  7.7% probability
+                    betLine[spin] = "Card";
+                    card += 1
                 break;
             case checkRange(value: Float(outCome[spin]), lowerBounds: 60, upperBounds: 62): //  4.6% probability
                     betLine[spin] = "Money";
@@ -360,45 +371,51 @@ class ViewController: UIViewController {
     
     func determineWinnings()
     {
-        if (trump == 0)
+        if (cherries == 0)
         {
-            if (seven == 3) {
+            if (lemon == 3) {
                 winnings = playerBet * 10;
             }
-            else if(barsCounter == 3) {
+            else if(penguin == 3) {
                 winnings = playerBet * 20;
             }
-            else if (card == 3) {
+            else if (dunky == 3) {
                 winnings = playerBet * 30;
             }
-            else if (cherries == 3) {
+            else if (card == 3) {
                 winnings = playerBet * 40;
             }
-            else if (lemon == 3) {
+            else if (money == 3) {
+                winnings = playerBet * 50;
+            }
+            else if (seven == 3) {
                 winnings = playerBet * 75;
             }
-            else if (penguin == 3) {
+            else if (trump == 3) {
                 winnings = playerBet * 100;
             }
-            else if (seven == 2) {
-                winnings = playerBet * 2;
-            }
-            else if (barsCounter == 2) {
-                winnings = playerBet * 2;
-            }
-            else if (card == 2) {
-                winnings = playerBet * 3;
-            }
-            else if (cherries == 2) {
-                winnings = playerBet * 4;
-            }
             else if (lemon == 2) {
-                winnings = playerBet * 10;
+                winnings = playerBet * 2;
             }
             else if (penguin == 2) {
+                winnings = playerBet * 2;
+            }
+            else if (dunky == 2) {
+                winnings = playerBet * 3;
+            }
+            else if (card == 2) {
+                winnings = playerBet * 4;
+            }
+            else if (money == 2) {
+                winnings = playerBet * 5;
+            }
+            else if (seven == 2) {
+                winnings = playerBet * 10;
+            }
+            else if (trump == 2) {
                 winnings = playerBet * 20;
             }
-            else if (penguin == 1) {
+            else if (trump == 1) {
                 winnings = playerBet * 5;
             }
             else {
@@ -481,13 +498,14 @@ class ViewController: UIViewController {
     }
    
     
-    // Recursive function that make possible animation
+    // Recursive function that makes animation possible
     // Requires to receive the imageView in the correct order for the animation and the next image to be shown
     private func animateReelRecursive(nextImage:Int, firstView:UIImageView, secondView:UIImageView, duration:Double, reel:String) {
         
-        // Second Base condition. If next Image is the selected one, then stop recursion
+        // Base condition. If next Image is the selected one, then stop recursion
         let reelNumber = reel == "left" ? 0 : (reel == "middle" ? 1 : 2)
-        if  nextImage > 0  && (nextImage - 1 ) == reelImageNames.index(of: spinResult[reelNumber]) {
+        
+        if  (nextImage - 1 ) == reelImageNames.index(of: spinResult[reelNumber]) {
             UIView.animate(withDuration: duration, delay: 0, options: .curveLinear, animations: {
                 firstView.frame.origin.y += self.reelHeight
                 secondView.frame.origin.y += self.reelHeight
@@ -496,24 +514,12 @@ class ViewController: UIViewController {
                     firstView.image = self.reelImages[0]
                     self.view.addSubview(firstView)
                     firstView.frame.origin.y = self.helperReelOriginalY
-                    
                 }
             })
             return
         }
-//        if  nextImage == 0 {
-//            firstView.image = self.reelImages[0]
-//            self.view.addSubview(firstView)
-//            firstView.frame.origin.y = self.reelOriginalY
-//
-//            secondView.image = self.reelImages[1]
-//            self.view.addSubview(secondView)
-//            secondView.frame.origin.y = self.helperReelOriginalY
-//            return
-//        }
         
-        // Base condition to stop recursion
-        // When the last image is received, it makes sure this last image is shown and end recursion
+        // When the last image is received, it makes sure this last image is shown and setup first image to start animation again
         if nextImage == reelImages.count {
             UIView.animate(withDuration: duration, delay: 0, options: .curveLinear, animations: {
                 firstView.frame.origin.y += self.reelHeight
@@ -530,8 +536,6 @@ class ViewController: UIViewController {
             })
             return
         }
-        
-       
         
         // Recursive Step
         UIView.animate(withDuration: duration, delay: 0, options: .curveLinear, animations: {

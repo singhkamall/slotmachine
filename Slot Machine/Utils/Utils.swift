@@ -1,12 +1,13 @@
 /*
- * Utils.swift
- * Project: Assignment 2 - Todo List App
+ * Utils
+ * Project: Assignment 1 - Swift Slot Machine
  * Students:
- *              Ling Bao        300901785
- *              Robert Argume   300949529
- * Date: Dec 20, 2017
- * Description:
- *              Class with useful static functions to share in the project
+ *          Mehmet Fatih Inan       300966544
+ *          Kamalpreet Singh        300976062
+ *          Robert Argume           300949529
+ *
+ * Date: Feb 05, 2018
+ * Description: Class for help methods like generating sounds, etc
  * Version: 0.1
  */
 import Foundation

@@ -1,11 +1,16 @@
-//
-//  AppDelegate.swift
-//  Slot Machine
-//
-//  Created by Kamalpreet Singh on 2018-01-29.
-//  Copyright © 2018 SlotMachine. All rights reserved.
-//
-
+/*
+ * AppDelegate.swift
+ * Project: Assignment 1 - Swift Slot Machine
+ * Students:
+ *          Mehmet Fatih Inan       300966544
+ *          Kamalpreet Singh        300976062
+ *          Robert Argume           300949529
+ *
+ * Date: Feb 05, 2018
+ * Description: Basic Slot Machine for iOS based on "Slot Machine Code" provided on
+ *              GitHub as a template
+ * Version: 0.1
+ */
 import UIKit
 
 @UIApplicationMain
@@ -15,9 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Play Sound and set delay to see the splash screen
+        // Play Sound at beginning
         Utils.playSound(file: "Intro", ext: "mp3")
-        
         return true
     }
 
